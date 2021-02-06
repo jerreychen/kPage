@@ -7,13 +7,21 @@ KPage 从1.0 到 目前的3.0 进行了质的更新。
 
 <br />
 KPage 3.0 包含如下内容：
+
 * 1、MVC 层级架构
+
 * 2、简单的 url route 转发（结合apache 转发模块）
+
 * 3、基础的常用功能模块（包含cookies、cache、http）
+
 * 4、画图、图片拼合、水印等功能
+
 * 5、curl 功能的封装
+
 * 6、ORM（mysql、sqlite） 功能，面向对象进行数据库操作
+
 * 7、redis 模块
+
 
 持续更新...
 <br /><br /><br /><br /><br />
