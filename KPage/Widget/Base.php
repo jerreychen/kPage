@@ -30,8 +30,13 @@ abstract class Base
      */
     abstract function main();
 
-    protected function addFilter($filterName, $callback)
+    protected function registerHook($hookName, $callback)
     {
-        Manager::addFilter((new \ReflectionClass($this))->getName(), $filterName, $callback);
+        Manager::registerHook($this, $hookName, $callback);
+    }
+
+    protected function registerHooks($hooks) 
+    {
+        Manager::registerHooks($this, $hooks);
     }
 }

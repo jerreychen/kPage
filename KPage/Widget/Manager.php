@@ -42,9 +42,32 @@ final class Manager
         return self::$_instance;
     }
 
-    static public function addFilter($widgetName, $filterName, $callback)
+    /**
+     * 注册钩子
+     *
+     * @param Base $widget
+     * @param String $hookName
+     * @param Function $hookCallback
+     * @return void
+     */
+    static public function registerHook($widgetClass, $hookName, $hookCallback)
+    { 
+        if(! $widgetClass instanceof Base) {
+            throw new \Exception('Hook 必须添加给 Base 类的子类对象！');
+        }
+ 
+        $widgetName = get_class($widgetClass);
+        self::$_instance->_widgets[$widgetName][$hookName] = $hookCallback;
+    }
+    static public function registerHooks($widgetClass, $hooks) 
     {
-        self::$_instance->_widgets[$widgetName][$filterName] = $callback;
+        if(! is_array($hooks)) {
+            throw new \Exception('Hooks 必须是数组！');
+        }
+ 
+        foreach($hooks as $hookName => $hookCallback) {
+            self::registerHook($widgetClass, $hookName, $hookCallback);
+        }
     }
 
     private function scanWidgets()
@@ -90,14 +113,14 @@ final class Manager
         $this->_widgets[$widgetName]['file'] = $widgetClassFile;
     }
  
-    public function triggerByFilter($filterName)
+    public function triggerByHook($hookName)
     {
         foreach($this->_widgets as $widgetName => $widgetConfig) { 
-            $this->trigger($widgetName, $filterName);
+            $this->trigger($widgetName, $hookName);
         }
     }
 
-    public function trigger($widgetName, $filterName)
+    public function trigger($widgetName, $hookName)
     {
         $widgetFile = $this->_widgets[$widgetName]['file'];
         // 插件文件不存在
@@ -125,12 +148,12 @@ final class Manager
 
         // 是否该方法可以被调用，如果不是 public，报错
         if(!$main->isPublic()) { 
-            throw new Exception('插件的入口方法 main() 不存在或者不可访问！'); 
+            throw new \Exception('插件的入口方法 main() 不存在或者不可访问！'); 
         }
 
         call_user_func_array(array($widget, 'main'), []);
 
-        $widgetFilterCallback = $this->_widgets[$widgetName][$filterName];
+        $widgetFilterCallback = $this->_widgets[$widgetName][$hookName];
         // 如果没有该 filter 方法，不执行
         if(!$widgetFilterCallback) {
             return;
