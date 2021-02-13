@@ -48,7 +48,7 @@ if (!function_exists('www_url')) {
      */
     function www_url($uri = '')
     {
-        if(stripos($ui, 'http') === 0) {
+        if(stripos($uri, 'http') === 0) {
             return $uri;
         }
 
