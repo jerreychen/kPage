@@ -17,7 +17,7 @@ class Base extends Controller
         //Config::set('widget.enable', true);
         //Config::set('widget.list', ['HelloWorld', 'test']);
 
-        WidgetManager::getInstance()->triggerByFilter('test');
+        WidgetManager::getInstance()->triggerByHook('test');
 
     }
 }

@@ -8,6 +8,5 @@ body { background-color:#EEE; }
 <body>
 
 你好，朋友！
-<img src="/home/test" />
 </body>
 </html>
