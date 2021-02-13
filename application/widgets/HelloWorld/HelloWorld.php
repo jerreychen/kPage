@@ -12,9 +12,9 @@ class HelloWorld extends WidgetBase
 
     public function main()
     {
-         $this->addFilter('run', '__run');
+         $this->registerHook('run', '__run');
 
-         $this->addFilter('test', '__runTest');
+         $this->registerHook('test', '__runTest');
     }
 
     public function __run() {
