@@ -76,7 +76,7 @@ final class Config
         return $tmp;
     }
 
-    private function setArrayRecursive($keys, &$arr = [], $value) 
+    private function setArrayRecursive($keys, &$arr, $value) 
     {
         $key = array_shift($keys);
         if(!$key) {
